@@ -1,29 +1,55 @@
 public class Goban {
+	
     private static int taille;
     private char[][] goban;
     private char[] colonne;
+    
     public Goban(int taille){
         if (taille < 1 || taille > 26) throw new IllegalArgumentException("Taille invalide");
         this.taille = taille;
         this.goban = new char[taille][taille];
         this.colonne = new char[taille];
         setColonne();
+        
+        for(int i = 0; i < taille; i++) {
+    		for(int j = 0; j<taille;j++) {
+    			this.goban[i][j] = '.';
+    		}
+    	}
     }
-    public char[] setColonne(){
+    
+    public void Jouer(int x, int y, char couleur) {
+    	this.goban[x][y] = couleur;
+    }
+    
+    private char[] setColonne(){
         for(int i = 0; i < taille; i++){
             this.colonne[i] = (char)('A' + i);
         }
         return this.colonne;
     }
+    
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("     ");
+        sb.append("   ");
         for (char column : colonne) {
             sb.append(column + " ");
         }
         sb.append("\n");
+        int a = 0;
         for (int i = 0; i < taille; i++) {
-            sb.append(String.format("%2d ", i + 1) + "\n"); // Numéro de ligne
+            sb.append(String.format("%2d ", i + 1)); // Numéro de ligne
+            a = i;
+        		for(int j = 0; j<taille;j++) {
+        			sb.append(this.goban[a][j]);
+        			sb.append(" ");
+        		}
+        		sb.append(a+1);
+        		sb.append("\n");
+        	}
+        sb.append("   ");
+        for (char column : colonne) {
+            sb.append(column + " ");
         }
         return sb.toString();
     }
