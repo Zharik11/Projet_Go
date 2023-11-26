@@ -31,13 +31,13 @@ public class Goban {
     
     public String toString(){
         StringBuilder sb = new StringBuilder();
+        int a = 0;
         sb.append("   ");
         for (char column : colonne) {
             sb.append(column + " ");
         }
-        sb.append("\n");
-        int a = 0;
-        for (int i = 0; i < taille; i++) {
+        sb.append("\n");       
+        for (int i = taille - 1; i >= 0 ; i--) {
             sb.append(String.format("%2d ", i + 1)); // Numéro de ligne
             a = i;
         		for(int j = 0; j<taille;j++) {
@@ -45,6 +45,10 @@ public class Goban {
         			sb.append(" ");
         		}
         		sb.append(a+1);
+        		if(i == 1)
+        			sb.append("     WHITE (O) has captured 0 stones");
+        		else if(i == 0)
+        			sb.append("     BLACK (X) has captured 0 stones");
         		sb.append("\n");
         	}
         sb.append("   ");
