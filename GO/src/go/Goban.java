@@ -1,3 +1,4 @@
+package go;
 public class Goban {
 	
     private static int taille;
@@ -5,7 +6,7 @@ public class Goban {
     private char[] colonne;
     
     public Goban(int taille){
-        if (taille < 1 || taille > 26) throw new IllegalArgumentException("Taille invalide");
+        if (taille < 5 || taille > 26) throw new IllegalArgumentException("Taille invalide");
         this.taille = taille;
         this.goban = new char[taille][taille];
         this.colonne = new char[taille];

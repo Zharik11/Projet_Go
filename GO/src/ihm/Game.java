@@ -1,10 +1,12 @@
+package ihm;
 import java.util.Scanner;
+import go.Goban;
 
 public class Game {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         // System.out.println("Veuillez saisir la taille du plateau :");
-        int taille; //= sc.nextInt();
+        int taille = 19; //= sc.nextInt();
         String cmd = "";
         Goban g = null;// = new Goban(taille);
         int cpt = 0;
@@ -40,14 +42,15 @@ public class Game {
                 }
             } 
             else if (commandes.equals("showboard")) {
-            	if(g != null)
-            		 g.Jouer(1, 1, 'b');
-                     g.Jouer(0, 0, 'b');
-                     g.Jouer(2, 2, 'b');
-                     g.Jouer(3, 3, 'b');
-                     g.Jouer(4, 4, 'b');
-            		System.out.println(g.toString());	
+            	if(g != null) {
+            		System.out.println(g.toString());
+            	}
             } 
+            else if (commandes.equals("play")) {
+            	if(input.length >= 3) {
+            		
+            	}
+            }            
             else if (cmd.equals("quit")) {
                 break;
             } 
