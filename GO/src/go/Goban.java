@@ -20,7 +20,7 @@ public class Goban {
     }
     
     public void Jouer(int x, int y, char couleur) {
-    	this.goban[x][y] = couleur;
+    	this.goban[y][x] = couleur;
     }
     
     private char[] setColonne(){

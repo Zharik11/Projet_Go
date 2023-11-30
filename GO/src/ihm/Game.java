@@ -1,6 +1,9 @@
 package ihm;
 import java.util.Scanner;
 import go.Goban;
+import org.omg.Messaging.SyncScopeHelper;
+
+import static java.lang.Character.*;
 
 public class Game {
     public static void main(String[] args) {
@@ -13,7 +16,7 @@ public class Game {
         String input[];
         String commandes;
         String paramètres;
-        String azdqsd;
+        String paramètre2;
 
         // g.Jouer(1, 1, 'b');
         // g.Jouer(0, 0, 'b');
@@ -43,19 +46,34 @@ public class Game {
             } 
             else if (commandes.equals("showboard")) {
             	if(g != null) {
-            		System.out.println(g.toString());
+            		System.out.println(cpt + "=\n" + g.toString());
             	}
+                else
+                    System.out.println(cpt +"=?");
             } 
             else if (commandes.equals("play")) {
-            	if(input.length >= 3) {
-            		
-            	}
+                if(g != null){
+                    if(input.length == 3) {
+                        paramètres = input[1];
+                        paramètre2 = input[2];
+                        if(paramètres.equals("black"))
+                            g.Jouer((int) paramètre2.charAt(0) - 97,(int) paramètre2.charAt(1) - 49,'X');
+                        else if (paramètres.equals("white"))
+                            g.Jouer((int) paramètre2.charAt(0) - 97,(int) paramètre2.charAt(1) - 49,'O');
+                        else
+                            System.out.println(cpt + "=?");
+                        System.out.println(g.toString());
+                    }
+                    else {
+                        System.out.println(cpt + "=?");
+                    }
+                }
             }            
             else if (cmd.equals("quit")) {
                 break;
             } 
             else {
-                System.out.println("? " + cmd + " Unknown command");
+                System.out.println(cpt + "=? " + cmd + " Unknown command");
             }
             
         }
