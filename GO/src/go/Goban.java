@@ -19,14 +19,25 @@ public class Goban {
     	}
     }
     
+    public void clearBoard() {
+    	for(int i = 0;i<taille; i++) 
+    		for(int j = 0; j<taille; j++) 
+    			this.goban[i][j] = '.';   	
+    }
+    
     public void Jouer(int x, int y, char couleur) {
-    	this.goban[y][x] = couleur;
+    	if(this.goban[y][x] == '.') {
+    		this.goban[y][x] = couleur;
+    	}
     }
     
     private char[] setColonne(){
-        for(int i = 0; i < taille; i++){
-            this.colonne[i] = (char)('A' + i);
-        }
+        for(int i = 0; i < taille; i++)
+        	if (i >= 8) {
+        	    this.colonne[i] = (char)('A' + i + 1); // Lorsque la lettreInterdite est atteinte
+        	} else {
+        	    this.colonne[i] = (char)('A' + i);
+        	}
         return this.colonne;
     }
     
@@ -34,12 +45,13 @@ public class Goban {
         StringBuilder sb = new StringBuilder();
         int a = 0;
         sb.append("   ");
-        for (char column : colonne) {
+        for (char column : colonne) { // Lettre de colonne
             sb.append(column + " ");
+            //System.out.println("---- " + column + " ----");
         }
         sb.append("\n");       
-        for (int i = taille - 1; i >= 0 ; i--) {
-            sb.append(String.format("%2d ", i + 1)); // Numéro de ligne
+        for (int i = taille - 1; i >= 0 ; i--) {        	
+            sb.append(String.format("%2d ", i+1)); // Numéro de ligne
             a = i;
         		for(int j = 0; j<taille;j++) {
         			sb.append(this.goban[a][j]);

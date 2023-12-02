@@ -1,9 +1,6 @@
 package ihm;
 import java.util.Scanner;
 import go.Goban;
-import org.omg.Messaging.SyncScopeHelper;
-
-import static java.lang.Character.*;
 
 public class Game {
     public static void main(String[] args) {
@@ -44,6 +41,7 @@ public class Game {
                     System.out.println("? " + cmd + " Paramètre manquant pour boardsize");
                 }
             } 
+            
             else if (commandes.equals("showboard")) {
             	if(g != null) {
             		System.out.println(cpt + "=\n" + g.toString());
@@ -51,31 +49,51 @@ public class Game {
                 else
                     System.out.println(cpt +"=?");
             } 
+            
             else if (commandes.equals("play")) {
                 if(g != null){
                     if(input.length == 3) {
                         paramètres = input[1];
                         paramètre2 = input[2];
-                        if(paramètres.equals("black"))
-                            g.Jouer((int) paramètre2.charAt(0) - 97,(int) paramètre2.charAt(1) - 49,'X');
-                        else if (paramètres.equals("white"))
-                            g.Jouer((int) paramètre2.charAt(0) - 97,(int) paramètre2.charAt(1) - 49,'O');
+                        //lorsqu'on met D10 par exemple ça prend que le 1 du 10 et non 10 en entier !!!!!!!!!!!!!!!
+                        //lorsqu'on met D10 par exemple ça prend que le 1 du 10 et non 10 en entier !!!!!!!!!!!!!!!
+                        //lorsqu'on met D10 par exemple ça prend que le 1 du 10 et non 10 en entier !!!!!!!!!!!!!!!
+                        //lorsqu'on met D10 par exemple ça prend que le 1 du 10 et non 10 en entier !!!!!!!!!!!!!!!
+                        //lorsqu'on met D10 par exemple ça prend que le 1 du 10 et non 10 en entier !!!!!!!!!!!!!!!
+                        if(paramètres.equals("black")) {
+                        	if((int) paramètre2.charAt(0) - 97 >= 8) {
+                        		g.Jouer((int) paramètre2.charAt(0) - 98,(int) paramètre2.charAt(1) - 49,'X'); //Si c'est à partir de I
+                        	}
+                        	else {
+                        		g.Jouer((int) paramètre2.charAt(0) - 97,(int) paramètre2.charAt(1) - 49,'X'); //Si c'est avant I
+                        	}
+                        }        
+                        else if (paramètres.equals("white")) {
+                        	if((int) paramètre2.charAt(0) - 97 >= 8) 
+                        		g.Jouer((int) paramètre2.charAt(0) - 98,(int) paramètre2.charAt(1) - 49,'O'); //Si c'est à partir de I                        	
+                        	else 
+                        		g.Jouer((int) paramètre2.charAt(0) - 97,(int) paramètre2.charAt(1) - 49,'O'); //Si c'est avant I                     	
+                        }
                         else
                             System.out.println(cpt + "=?");
+                        
                         System.out.println(g.toString());
                     }
+                    
                     else {
                         System.out.println(cpt + "=?");
                     }
-                }
-            }            
+                } 
+            }
+            else if(commandes.equals("clearboard")) {
+            	g.clearBoard();
+            }
             else if (cmd.equals("quit")) {
                 break;
             } 
             else {
                 System.out.println(cpt + "=? " + cmd + " Unknown command");
             }
-            
         }
         sc.close();
     }
