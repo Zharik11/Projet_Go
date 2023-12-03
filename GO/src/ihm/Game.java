@@ -55,24 +55,50 @@ public class Game {
                     if(input.length == 3) {
                         paramètres = input[1];
                         paramètre2 = input[2];
-                        //lorsqu'on met D10 par exemple ça prend que le 1 du 10 et non 10 en entier !!!!!!!!!!!!!!!
-                        //lorsqu'on met D10 par exemple ça prend que le 1 du 10 et non 10 en entier !!!!!!!!!!!!!!!
-                        //lorsqu'on met D10 par exemple ça prend que le 1 du 10 et non 10 en entier !!!!!!!!!!!!!!!
-                        //lorsqu'on met D10 par exemple ça prend que le 1 du 10 et non 10 en entier !!!!!!!!!!!!!!!
-                        //lorsqu'on met D10 par exemple ça prend que le 1 du 10 et non 10 en entier !!!!!!!!!!!!!!!
                         if(paramètres.equals("black")) {
-                        	if((int) paramètre2.charAt(0) - 97 >= 8) {
-                        		g.Jouer((int) paramètre2.charAt(0) - 98,(int) paramètre2.charAt(1) - 49,'X'); //Si c'est à partir de I
+                        	if((int) paramètre2.charAt(0) - 97 >= 8) { //permet de voir si la lettre interdite est atteinte
+                        		if(paramètre2.length() >= 3) {
+                        			System.out.println("---------- substring B et lettre interdite ");
+                        			g.Jouer((int) paramètre2.charAt(0) - 98,Integer.parseInt(paramètre2.substring(1,3)) - 1,'X'); //Permet de convertir la lettre et la case en int
+                        		}
+                        		else {
+                        			System.out.println("---------- charAt B et lettre interdite");
+                        			g.Jouer((int) paramètre2.charAt(0) - 98, (int) paramètre2.charAt(1) - 49,'X'); //Si c'est à partir de I
+                        		}	
                         	}
                         	else {
-                        		g.Jouer((int) paramètre2.charAt(0) - 97,(int) paramètre2.charAt(1) - 49,'X'); //Si c'est avant I
+                        		if(paramètre2.length() >= 3) {
+                        			System.out.println("---------- substring B");
+                        			g.Jouer((int) paramètre2.charAt(0) - 97,Integer.parseInt(paramètre2.substring(1,3))-1,'X');
+                        		}
+                        		else {
+                        			System.out.println("---------- charAt B");
+                        			g.Jouer((int) paramètre2.charAt(0) - 97, (int) paramètre2.charAt(1) - 49,'X'); //Si c'est avant I
+                        		}                       		
                         	}
                         }        
                         else if (paramètres.equals("white")) {
-                        	if((int) paramètre2.charAt(0) - 97 >= 8) 
-                        		g.Jouer((int) paramètre2.charAt(0) - 98,(int) paramètre2.charAt(1) - 49,'O'); //Si c'est à partir de I                        	
-                        	else 
-                        		g.Jouer((int) paramètre2.charAt(0) - 97,(int) paramètre2.charAt(1) - 49,'O'); //Si c'est avant I                     	
+                        	if((int) paramètre2.charAt(0) - 97 >= 8) { //permet de voir si la lettre interdite est atteinte
+                        		if(paramètre2.length() >= 3) {
+                        			System.out.println("---------- substring W et lettre interdite ");
+                        			g.Jouer((int) paramètre2.charAt(0) - 98,Integer.parseInt(paramètre2.substring(1,3)) - 1,'O'); //Permet de convertir la lettre et la case en int
+                        		}
+                        		else {
+                        			System.out.println("---------- charAt W et lettre interdite");
+                        			g.Jouer((int) paramètre2.charAt(0) - 98, (int) paramètre2.charAt(1) - 49,'O'); //Si c'est à partir de I
+                        		}	
+                        	}
+                        	else {
+                        		if(paramètre2.length() >= 3) {
+                        			System.out.println("---------- substring W");
+                        			g.Jouer((int) paramètre2.charAt(0) - 97,Integer.parseInt(paramètre2.substring(1,3)) - 1,'O');
+                        		}
+                        		else {
+                        			System.out.println("---------- charAt W");
+                        			g.Jouer((int) paramètre2.charAt(0) - 97, (int) paramètre2.charAt(1) - 49,'O'); //Si c'est avant I
+                        		}                       		
+                        	}
+                        	                	
                         }
                         else
                             System.out.println(cpt + "=?");
@@ -86,7 +112,8 @@ public class Game {
                 } 
             }
             else if(commandes.equals("clearboard")) {
-            	g.clearBoard();
+            	if (g != null)
+            		g.clearBoard();
             }
             else if (cmd.equals("quit")) {
                 break;

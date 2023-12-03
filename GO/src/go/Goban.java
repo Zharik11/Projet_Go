@@ -1,7 +1,7 @@
 package go;
 public class Goban {
 	
-    private static int taille;
+    private int taille;
     private char[][] goban;
     private char[] colonne;
     
@@ -25,9 +25,11 @@ public class Goban {
     			this.goban[i][j] = '.';   	
     }
     
-    public void Jouer(int x, int y, char couleur) {
-    	if(this.goban[y][x] == '.') {
-    		this.goban[y][x] = couleur;
+    public void Jouer(int ligne, int colonne, char couleur) {
+    	if(ligne < taille && colonne < taille) {
+    		if(this.goban[colonne][ligne] == '.') {
+        		this.goban[colonne][ligne] = couleur;
+        	}
     	}
     }
     
