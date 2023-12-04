@@ -97,8 +97,7 @@ public class Game {
                         			System.out.println("---------- charAt W");
                         			g.Jouer((int) paramètre2.charAt(0) - 97, (int) paramètre2.charAt(1) - 49,'O'); //Si c'est avant I
                         		}                       		
-                        	}
-                        	                	
+                        	}                        	                	
                         }
                         else
                             System.out.println(cpt + "=?");
