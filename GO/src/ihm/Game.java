@@ -5,7 +5,6 @@ import go.Goban;
 public class Game {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        // System.out.println("Veuillez saisir la taille du plateau :");
         int taille = 19; //= sc.nextInt();
         String cmd = "";
         Goban g = null;// = new Goban(taille);
@@ -58,21 +57,17 @@ public class Game {
                         if(paramètres.equals("black")) {
                         	if((int) paramètre2.charAt(0) - 97 >= 8) { //permet de voir si la lettre interdite est atteinte
                         		if(paramètre2.length() >= 3) {
-                        			System.out.println("---------- substring B et lettre interdite ");
                         			g.Jouer((int) paramètre2.charAt(0) - 98,Integer.parseInt(paramètre2.substring(1,3)) - 1,'X'); //Permet de convertir la lettre et la case en int
                         		}
                         		else {
-                        			System.out.println("---------- charAt B et lettre interdite");
                         			g.Jouer((int) paramètre2.charAt(0) - 98, (int) paramètre2.charAt(1) - 49,'X'); //Si c'est à partir de I
                         		}	
                         	}
                         	else {
                         		if(paramètre2.length() >= 3) {
-                        			System.out.println("---------- substring B");
                         			g.Jouer((int) paramètre2.charAt(0) - 97,Integer.parseInt(paramètre2.substring(1,3))-1,'X');
                         		}
                         		else {
-                        			System.out.println("---------- charAt B");
                         			g.Jouer((int) paramètre2.charAt(0) - 97, (int) paramètre2.charAt(1) - 49,'X'); //Si c'est avant I
                         		}                       		
                         	}
@@ -80,22 +75,26 @@ public class Game {
                         else if (paramètres.equals("white")) {
                         	if((int) paramètre2.charAt(0) - 97 >= 8) { //permet de voir si la lettre interdite est atteinte
                         		if(paramètre2.length() >= 3) {
-                        			System.out.println("---------- substring W et lettre interdite ");
                         			g.Jouer((int) paramètre2.charAt(0) - 98,Integer.parseInt(paramètre2.substring(1,3)) - 1,'O'); //Permet de convertir la lettre et la case en int
+                        			g.Capture((int) paramètre2.charAt(0) - 98,Integer.parseInt(paramètre2.substring(1,3)) - 1,'X', 1,'O');
+                        			g.Decision();
                         		}
                         		else {
-                        			System.out.println("---------- charAt W et lettre interdite");
-                        			g.Jouer((int) paramètre2.charAt(0) - 98, (int) paramètre2.charAt(1) - 49,'O'); //Si c'est à partir de I
+                        			g.Jouer((int) paramètre2.charAt(0) - 98, (int) paramètre2.charAt(1) - 49,'O'); 
+                        			g.Capture((int) paramètre2.charAt(0) - 98, (int) paramètre2.charAt(1) - 49,'X', 1,'O');
+                        			g.Decision();
                         		}	
                         	}
                         	else {
                         		if(paramètre2.length() >= 3) {
-                        			System.out.println("---------- substring W");
                         			g.Jouer((int) paramètre2.charAt(0) - 97,Integer.parseInt(paramètre2.substring(1,3)) - 1,'O');
+                        			g.Capture((int) paramètre2.charAt(0) - 97,Integer.parseInt(paramètre2.substring(1,3)) - 1,'X', 1,'O');
+                        			g.Decision();
                         		}
                         		else {
-                        			System.out.println("---------- charAt W");
                         			g.Jouer((int) paramètre2.charAt(0) - 97, (int) paramètre2.charAt(1) - 49,'O'); //Si c'est avant I
+                        			g.Capture((int) paramètre2.charAt(0) - 97, (int) paramètre2.charAt(1) - 49,'X', 1,'O');
+                        			g.Decision();
                         		}                       		
                         	}                        	                	
                         }
