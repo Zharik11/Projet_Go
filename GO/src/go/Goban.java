@@ -1,8 +1,11 @@
 package go;
 import java.util.HashSet;
+import java.util.Random;
+import joueur.*;
 
 public class Goban {
 	private static final int MAX = 50;
+	private IJoueur blanc, noir;
     private int taille;
     private char[][] goban;
     private char[] colonne;
@@ -12,6 +15,7 @@ public class Goban {
     
     public Goban(int taille){
         if (taille < 5 || taille > 26) throw new IllegalArgumentException("Taille invalide");
+        
         this.taille = taille;
         this.goban = new char[taille][taille];
         this.colonne = new char[taille];
@@ -25,10 +29,71 @@ public class Goban {
     	}
     }
     
+    public boolean joueurConsolePresent() {
+    	return !getEtatNoir() || !getEtatBlanc();
+    }
+    public boolean getEtatNoir() {
+    	return noir.getEtat();
+    }
+    public boolean getEtatBlanc() {
+    	return blanc.getEtat();
+    }
+    
+    public boolean prêtAJouer() {
+    	return noir != null && blanc != null;
+    }
+    
+    public void Joueur(String joueur, boolean etat) {
+    	if(joueur.equals("black")) {
+    		this.noir = new Noir(etat);
+    		System.out.println("Test création noir réussi");
+    		//if(this.noir != null) {
+    			//System.out.println("--- noir non null --- " + noir);
+    		//}
+    	}
+    	else {
+    		this.blanc = new Blanc(etat);
+    		System.out.println("Test création blanc réussi");
+    		//if(this.blanc != null) {
+    		//	System.out.println("--- blanc non null ---" + blanc);
+    		//}
+    	}
+    }
+    
+    public boolean gobanPlein() {
+    	for(int i = 0; i<taille; i++) {
+    		for(int j = 0; j<taille; j++) {
+    			if(goban[i][j] == '.')
+    				return false;
+    		}
+    	}
+    	return true;
+    }
+    
     public void clearBoard() {
     	for(int i = 0;i<taille; i++)
     		for(int j = 0; j<taille; j++) 
     			this.goban[i][j] = '.';   	
+    }
+    
+    public void JouerRandom(char couleur, char couleurO) {
+    	Random r = new Random();
+    	int ligne = r.nextInt(taille);
+    	int colonne = r.nextInt(taille);
+    	while(true) {
+    		System.out.println("TEST de la case JouerRandom " + goban[ligne][colonne]);
+    		if(goban[colonne][ligne] != '.') {
+    			ligne = r.nextInt(taille);
+    	    	colonne = r.nextInt(taille);
+    		}
+    		else {
+    			System.out.println("JOUER RANDOM COLONNE === "+ (ligne+1) + " et LIGNE === "+(colonne+1));
+    	    	Jouer(ligne, colonne, couleur);
+    	    	Capture(ligne, colonne, couleurO, 1, couleur);
+    			Decision(couleur);
+    	    	break;
+    		}
+    	}
     }
     
     public void Jouer(int ligne, int colonne, char couleur) {
@@ -136,37 +201,33 @@ public class Goban {
         		tmp++;
         	}
     	}
-    	else
-    		tmp++;
     	if(colonne-1 >= 0) {
     		if(goban[colonne-1][ligne] == '.') {//en bas
         		System.out.println("verifCapture en bas Colonne : " +(1+ligne)+ " //Ligne : " + (colonne)+ " //Couleur : " +couleur);
         		tmp++;
         	}
     	}
-    	else
-    		tmp++;
     	if(ligne+1 < taille) {
     		if(goban[colonne][ligne+1] == '.') {// a droite 
         		System.out.println("verifCapture a droite Colonne : " +(2+ligne)+ " //Ligne : " + (1+colonne)+ " //Couleur : " +couleur);
         		tmp++;
         	}
     	}
-    	else
-    		tmp++;
     	if(ligne - 1 >= 0) {
     		if(goban[colonne][ligne-1] == '.') {//a gauche
         		System.out.println("verifCapture a gauche Colonne : " +(ligne)+ " //Ligne : " + (1+colonne)+ " //Couleur : " +couleur);
         		tmp++;
         	}
     	}
-    	else
-    		tmp++;
     	return tmp;
     }
     
-    public void Decision() {
+    public void Decision(char joueurQuiReçoit) {
     	if(cptCap == 0) {
+    		if(joueurQuiReçoit == 'X')
+    			noir.setPionsCapturé(tabVerif.size());
+    		else
+    			blanc.setPionsCapturé(tabVerif.size());
     		for(Position position : tabVerif) {
     			System.out.println("§§§ DecisionTest §§§ Colonne : " + (position.getColonne()+1)+ " et Ligne : " +(1+position.getLigne()));
     			Eradication(position.getColonne(), position.getLigne());
@@ -176,9 +237,7 @@ public class Goban {
     
     private void Eradication(int colonne, int ligne) {
        if (colonne >= 0 && colonne < taille && ligne >= 0 && ligne < taille) 
-            goban[colonne][ligne] = '!';
-         //else 
-            //System.out.println("Indices invalides : colonne = " + colonne + ", ligne = " + ligne);
+            goban[colonne][ligne] = '.';
     }
     
     private char[] setColonne(){
@@ -209,9 +268,9 @@ public class Goban {
         		}
         		sb.append(a+1);
         		if(i == 1)
-        			sb.append("     WHITE (O) has captured 0 stones");
+        			sb.append("     WHITE (O) has captured " + this.blanc.getPionsCapturé() + " stones");
         		else if(i == 0)
-        			sb.append("     BLACK (X) has captured 0 stones");
+        			sb.append("     BLACK (X) has captured " + this.noir.getPionsCapturé() + " stones");
         		sb.append("\n");
         	}
         sb.append("   ");
