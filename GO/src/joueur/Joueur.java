@@ -21,7 +21,4 @@ public class Joueur implements IJoueur {
 	public boolean getEtat() {
 		return ia;
 	}
-	public void jouerIA(Goban g) {
-		
-	}
 }

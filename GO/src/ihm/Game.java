@@ -8,23 +8,13 @@ public class Game {
         int taille = 19;
         String cmd = "";
         Goban g = new Goban(taille);
-        int cpt = 0;
         int cptTour = 0;
         String input[];
         String commandes;
         String paramètres;
         String paramètre2;
 
-        // g.Jouer(1, 1, 'b');
-        // g.Jouer(0, 0, 'b');
-        // g.Jouer(2, 2, 'b');
-        // g.Jouer(3, 3, 'b');
-        // g.Jouer(4, 4, 'b');
-        //
-        //System.out.println(g.goban);
-        //cmd = sc.next();
         while (true) {
-            System.out.print(++cpt + " ");
             if(g.prêtAJouer()) {
             	if(g.getEtatNoir()) {
             		if(cptTour % 2 == 0) {
@@ -59,48 +49,60 @@ public class Game {
 	            
 	            // boardsize 19
 	            if (commandes.equals("boardsize")) {
-	                if (input.length == 2) {
+	                if (input.length >= 2) {
 	                    paramètres = input[1];
 	                    taille = Integer.parseInt(paramètres);
 	                    g = new Goban(taille);
-	                    
+	                    System.out.println("= \n");
 	                } else {
-	                    System.out.println("? " + cmd + " Paramètre manquant pour boardsize");
+	                    System.out.println("? boardsize not an integer");
 	                }
 	            } 
 	            else if (commandes.equals("player")) {
-	            	if(input.length == 3) {
+	            	if(input.length >= 3) {
 	            		paramètres = input[1];
 	                	paramètre2 = input[2];
 	                	if(paramètres.equals("black")) {
-	                		if(paramètre2.equals("console"))
+	                		if(paramètre2.equals("console")) {
 	                			g.Joueur(paramètres, false);
-	                		else
+		                		System.out.println("=\n");
+	                		}
+	                		else if (paramètre2.equals("random")) {
 	                			g.Joueur(paramètres, true);
+		                		System.out.println("=\n");
+	                		}
+	                		else
+	                			System.out.println("? invalid state");
 	                	}
 	                	else if(paramètres.equals("white")) {
-	                		if(paramètre2.equals("console"))
+	                		if(paramètre2.equals("console")) {
 	                			g.Joueur(paramètres, false);
-	                		else
+		                		System.out.println("=\n");
+	                		}
+	                		else if(paramètre2.equals("random")) {
 	                			g.Joueur(paramètres, true);
+		                		System.out.println("=\n");
+	                		}
+	                		else
+	                			System.out.println("? invalid state");
 	                	}
 	                	else {
-	                		System.out.println("=? unknow command");
+	                		System.out.println("? invalid player");
 	                	}
 	            	}
 	            	
 	            }
 	            else if (commandes.equals("showboard")) {
 	            	if(g.prêtAJouer()) {
-	            		System.out.println(cpt + "=\n" + g.toString());
+	            		System.out.println("=\n" + g.toString() + "\n");
 	            	}
 	                else
-	                    System.out.println(cpt +"=? missing player");
+	                    System.out.println("? missing player");
 	            } 
 	            
 	            else if (commandes.equals("play")) {
 	                if(g.prêtAJouer()){ 
-	                    if(input.length == 3) {
+	                    if(input.length >= 3) {
 	                    	if(g.prêtAJouer()) {
 		                        paramètres = input[1];
 		                        paramètre2 = input[2];
@@ -131,13 +133,12 @@ public class Game {
 		                                			g.Decision('X');
 		                                		}                       		
 		                                	}
+		                            		System.out.println("=\n");
 		                            	}
-		                        		if(g.getEtatBlanc()) {
-		                        			
-		                        		}
 		                        		else 
-		                        			System.out.println("= ? not your turn");
-		                        }        
+		                        			System.out.println("? not your turn");
+		                        }
+		                        
 		                        else if (paramètres.equals("white") && !g.getEtatBlanc()) {
 		                        	if(cptTour % 2 != 0) {
 		                        		cptTour++;
@@ -164,20 +165,23 @@ public class Game {
 		                            			g.Capture((int) paramètre2.charAt(0) - 97, (int) paramètre2.charAt(1) - 49,'X', 1,'O');
 		                            			g.Decision('O');
 		                            		}                       		
-		                            	}                       
+		                            	}
+		                        		System.out.println("=\n");
 		                        	}	 
 		                        	else 
-	                        			System.out.println("= ? not your turn");
+	                        			System.out.println("? not your turn");
 		                        }
+		                        else
+		                        	System.out.println("? invalid color or coordinate");
 	                    	}
 	                        else
-	                            System.out.println(cpt + "=? missing player");
+	                            System.out.println("? missing player");
 	                        
-	                        System.out.println(g.toString());
+	                        //System.out.println(g.toString());
 	                    }
 	                    
 	                    else {
-	                        System.out.println(cpt + "=?");
+	                        System.out.println("? invalid color or coordinate");
 	                    }
 	                } 
 	            }
@@ -193,7 +197,7 @@ public class Game {
 	            } 
 	            
 	            else {
-	                System.out.println(cpt + "=? " + cmd + " Unknown command");
+	                System.out.println("? unknown command");
 	            }
 	        }
         }
