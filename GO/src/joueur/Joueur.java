@@ -2,8 +2,8 @@ package joueur;
 import go.IJoueur;
 
 public class Joueur implements IJoueur {
-	int pionsCapturés;
-	boolean ia = false;
+	private int pionsCapturés;
+	private boolean ia = false;
 	
 	public Joueur (boolean b) {
 		pionsCapturés = 0;
