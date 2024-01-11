@@ -2,7 +2,7 @@ package ihm;
 import java.util.Scanner;
 import go.Goban;
 
-public class Game {
+public class ihm {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int taille = 19;
@@ -101,7 +101,6 @@ public class Game {
 	            } 
 	            
 	            else if (commandes.equals("play")) {
-	                if(g.prêtAJouer()){ 
 	                    if(input.length >= 3) {
 	                    	if(g.prêtAJouer()) {
 		                        paramètres = input[1];
@@ -112,24 +111,24 @@ public class Game {
 		                            		if((int) paramètre2.charAt(0) - 97 >= 8) { //permet de voir si la lettre interdite est atteinte
 		                                		if(paramètre2.length() >= 3) {
 		                                			g.Jouer((int) paramètre2.charAt(0) - 98,Integer.parseInt(paramètre2.substring(1,3)) - 1,'X'); //Permet de convertir la lettre et la case en int
-		                                			g.Capture((int) paramètre2.charAt(0) - 98,Integer.parseInt(paramètre2.substring(1,3)) - 1,'O', 1,'X');
+		                                			g.Capture((int) paramètre2.charAt(0) - 98,Integer.parseInt(paramètre2.substring(1,3)) - 1,'O','X');
 		                                			g.Decision('X');
 		                                		}
 		                                		else {
 		                                			g.Jouer((int) paramètre2.charAt(0) - 98, (int) paramètre2.charAt(1) - 49,'X'); //Si c'est à partir de I
-		                                			g.Capture((int) paramètre2.charAt(0) - 98, (int) paramètre2.charAt(1) - 49,'O', 1,'X');
+		                                			g.Capture((int) paramètre2.charAt(0) - 98, (int) paramètre2.charAt(1) - 49,'O','X');
 		                                			g.Decision('X');
 		                                		}	
 		                                	}
 		                                	else {
 		                                		if(paramètre2.length() >= 3) {
 		                                			g.Jouer((int) paramètre2.charAt(0) - 97,Integer.parseInt(paramètre2.substring(1,3))-1,'X');
-		                                			g.Capture((int) paramètre2.charAt(0) - 97,Integer.parseInt(paramètre2.substring(1,3)) - 1,'O', 1,'X');
+		                                			g.Capture((int) paramètre2.charAt(0) - 97,Integer.parseInt(paramètre2.substring(1,3)) - 1,'O','X');
 		                                			g.Decision('X');
 		                                		}
 		                                		else {
 		                                			g.Jouer((int) paramètre2.charAt(0) - 97, (int) paramètre2.charAt(1) - 49,'X'); //Si c'est avant I
-		                                			g.Capture((int) paramètre2.charAt(0) - 97, (int) paramètre2.charAt(1) - 49,'O', 1,'X');
+		                                			g.Capture((int) paramètre2.charAt(0) - 97, (int) paramètre2.charAt(1) - 49,'O','X');
 		                                			g.Decision('X');
 		                                		}                       		
 		                                	}
@@ -145,24 +144,24 @@ public class Game {
 		                        		if((int) paramètre2.charAt(0) - 97 >= 8) { //permet de voir si la lettre interdite est atteinte
 		                            		if(paramètre2.length() >= 3) {
 		                            			g.Jouer((int) paramètre2.charAt(0) - 98,Integer.parseInt(paramètre2.substring(1,3)) - 1,'O'); //Permet de convertir la lettre et la case en int
-		                            			g.Capture((int) paramètre2.charAt(0) - 98,Integer.parseInt(paramètre2.substring(1,3)) - 1,'X', 1,'O');
+		                            			g.Capture((int) paramètre2.charAt(0) - 98,Integer.parseInt(paramètre2.substring(1,3)) - 1,'X','O');
 		                            			g.Decision('O');
 		                            		}
 		                            		else {
 		                            			g.Jouer((int) paramètre2.charAt(0) - 98, (int) paramètre2.charAt(1) - 49,'O'); 
-		                            			g.Capture((int) paramètre2.charAt(0) - 98, (int) paramètre2.charAt(1) - 49,'X', 1,'O');
+		                            			g.Capture((int) paramètre2.charAt(0) - 98, (int) paramètre2.charAt(1) - 49,'X','O');
 		                            			g.Decision('O');
 		                            		}	
 		                            	}
 		                            	else { // lorsque la lettre interdite n'est pas atteinte
 		                            		if(paramètre2.length() >= 3) {
 		                            			g.Jouer((int) paramètre2.charAt(0) - 97,Integer.parseInt(paramètre2.substring(1,3)) - 1,'O');
-		                            			g.Capture((int) paramètre2.charAt(0) - 97,Integer.parseInt(paramètre2.substring(1,3)) - 1,'X', 1,'O');
+		                            			g.Capture((int) paramètre2.charAt(0) - 97,Integer.parseInt(paramètre2.substring(1,3)) - 1,'X','O');
 		                            			g.Decision('O');
 		                            		}
 		                            		else {
 		                            			g.Jouer((int) paramètre2.charAt(0) - 97, (int) paramètre2.charAt(1) - 49,'O'); //Si c'est avant I
-		                            			g.Capture((int) paramètre2.charAt(0) - 97, (int) paramètre2.charAt(1) - 49,'X', 1,'O');
+		                            			g.Capture((int) paramètre2.charAt(0) - 97, (int) paramètre2.charAt(1) - 49,'X','O');
 		                            			g.Decision('O');
 		                            		}                       		
 		                            	}
@@ -176,14 +175,11 @@ public class Game {
 	                    	}
 	                        else
 	                            System.out.println("? missing player");
-	                        
-	                        //System.out.println(g.toString());
 	                    }
 	                    
 	                    else {
 	                        System.out.println("? invalid color or coordinate");
-	                    }
-	                } 
+	                    } 
 	            }
 	            else if(commandes.equals("clearboard")) {
 	            	if (g != null)

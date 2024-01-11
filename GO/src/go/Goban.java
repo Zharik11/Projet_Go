@@ -4,7 +4,6 @@ import java.util.Random;
 import joueur.*;
 
 public class Goban {
-	private static final int MAX = 50;
 	private IJoueur blanc, noir;
     private int taille;
     private char[][] goban;
@@ -81,7 +80,7 @@ public class Goban {
     		}
     		else {
     	    	Jouer(ligne, colonne, couleur);
-    	    	Capture(ligne, colonne, couleurO, 1, couleur);
+    	    	Capture(ligne, colonne, couleurO, couleur);
     			Decision(couleur);
     	    	break;
     		}
@@ -97,10 +96,7 @@ public class Goban {
     		cptCap = 0;
     	}
     }
-    public void Capture(int ligne, int colonne, char couleur, int depth, char couleurO) {
-    	if (depth >= MAX) {
-            return; // Ajoutez cette ligne pour sortir de la récursion après un certain nombre d'itérations
-        }
+    public void Capture(int ligne, int colonne, char couleur, char couleurO) {
         if (colonne + 1 < taille) {
             if (goban[colonne+1][ligne] == couleur) { //en haut
             	if(goban[colonne][ligne] == couleurO) {
@@ -110,7 +106,7 @@ public class Goban {
                 if (!tabVerif.contains(new Position(colonne+1, ligne))) {
                 	tmp = new Position(colonne+1, ligne);
                 	tabVerif.add(tmp);
-                    Capture(ligne, colonne + 1, couleur, depth+1, couleurO);
+                    Capture(ligne, colonne + 1, couleur, couleurO);
                     cptCap += verifCapture(ligne, colonne + 1, couleur);
                 }
             }
@@ -126,7 +122,7 @@ public class Goban {
                 if (!tabVerif.contains(new Position(colonne-1, ligne))) {
                 	tmp = new Position(colonne-1, ligne);
                 	tabVerif.add(tmp);
-                    Capture(ligne, colonne - 1, couleur, depth+1, couleurO);
+                    Capture(ligne, colonne - 1, couleur, couleurO);
                     cptCap += verifCapture(ligne, colonne - 1, couleur);
                 }
             }
@@ -140,7 +136,7 @@ public class Goban {
                 if (!tabVerif.contains(new Position(colonne, 1-ligne))) {
                 	tmp = new Position(colonne, ligne-1);
                 	tabVerif.add(tmp);
-                    Capture(ligne - 1, colonne, couleur, depth+1, couleurO);
+                    Capture(ligne - 1, colonne, couleur, couleurO);
                     cptCap += verifCapture(ligne - 1, colonne, couleur);
                 }
             }
@@ -154,7 +150,7 @@ public class Goban {
                 if (!tabVerif.contains(new Position(colonne,1+ligne))){
                 	tmp = new Position(colonne, 1+ligne);
                 	tabVerif.add(tmp);
-                    Capture(ligne + 1, colonne, couleur, depth+1, couleurO);
+                    Capture(ligne + 1, colonne, couleur, couleurO);
                     cptCap += verifCapture(ligne + 1, colonne, couleur);     
                 }
             }            
@@ -219,7 +215,6 @@ public class Goban {
         sb.append("   ");
         for (char column : colonne) { // Lettre de colonne
             sb.append(column + " ");
-            //System.out.println("---- " + column + " ----");
         }
         sb.append("\n");       
         for (int i = taille - 1; i >= 0 ; i--) {        	

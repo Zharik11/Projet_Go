@@ -1,5 +1,5 @@
 package joueur;
-import go.Goban;
+import go.IJoueur;
 
 public class Joueur implements IJoueur {
 	int pionsCapturés;

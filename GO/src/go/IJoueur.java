@@ -1,4 +1,4 @@
-package joueur;
+package go;
 
 public interface IJoueur {
 	void setPionsCapturé(int pionsCapturés);
