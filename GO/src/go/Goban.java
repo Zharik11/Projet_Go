@@ -13,8 +13,6 @@ public class Goban {
     private Position tmp;
     
     public Goban(int taille){
-        if (taille < 5 || taille > 26) throw new IllegalArgumentException("Taille invalide");
-        
         this.taille = taille;
         this.goban = new char[taille][taille];
         this.colonne = new char[taille];
