@@ -52,8 +52,13 @@ public class ihm {
 	                if (input.length >= 2) {
 	                    paramètres = input[1];
 	                    taille = Integer.parseInt(paramètres);
-	                    g = new Goban(taille);
-	                    System.out.println("= \n");
+	                    if(taille < 5 || taille >26) {
+	                    	System.out.println("? unacceptable size");
+	                    }
+	                    else {
+	                    	g = new Goban(taille);
+	                    	System.out.println("= \n");
+	                    }
 	                } else {
 	                    System.out.println("? boardsize not an integer");
 	                }
