@@ -1,5 +1,7 @@
 # Projet_Go
 
+Note : 13/20
+
 Ajouter nom participants
 
 Le n° de commande doit être saisi par l'utilisateur
